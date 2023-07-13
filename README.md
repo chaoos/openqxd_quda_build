@@ -1,55 +1,6 @@
-# QUDA compile manual (old)
+This repository aims to help compiling [openQxD](https://gitlab.com/rcstar/openQxD-devel) against [QUDA](https://github.com/lattice/quda).
 
-## Compilation on yoshi.ethz.ch
-
-### Compilation of QUDA
-
-* create a directory somewhere
-* In this dir:
-
-```bash
-git clone -b feature/quda/main-thesis-release https://gitlab.com/rcstar/openQxD-devel.git
-git clone -b feature/openqxd-thesis-release https://github.com/fernandezdlg/quda.git
-git clone -b thesis-release https://github.com/fernandezdlg/openQxD-quda-build.git
-wget https://cmake.org/files/v3.24/cmake-3.24.2-linux-x86_64.tar.gz
-tar xfs cmake-3.24.2-linux-x86_64.tar.gz
-export PATH=$(realpath cmake-3.24.2-linux-x86_64/bin/):$PATH
-```
-
-* Check for binaries:
-
-```bash
-cmake --version # should be 3.24 now
-nvcc --version
-ninja --version
-```
-
-* Compile:
-
-```bash
-cd openQxD-quda-build
-. compileQUDAninja.sh
-```
-
-### Compilation of openqxd
-
-* Set the environment
-
-```bash
-export GCC=mpicc
-export MPI_INCLUDE="/usr/lib/x86_64-linux-gnu/openmpi/include/"
-export MPI_HOME="/usr/lib/x86_64-linux-gnu/openmpi/"
-```
-
-* Compile tests
-
-```bash
-cd openQxD-devel/devel/quda/uflds
-make clean
-make check1
-```
-
-# QUDA compile manual (new)
+# QUDA compile manual
 
 ```bash
 git clone <TODO>
