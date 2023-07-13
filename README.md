@@ -3,7 +3,8 @@ This repository aims to help compiling [openQxD](https://gitlab.com/rcstar/openQ
 # QUDA compile manual
 
 ```bash
-git clone <TODO>
+# Clone this repo
+git clone https://github.com/chaoos/openqxd_quda_build.git
 
 # Clone the repos
 cd src
@@ -32,7 +33,7 @@ In work dir:
 
 ```bash
 cd 01-work
-make quda
+make quda_ninja # make quda_make if ninja is not available
 make check1
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(realpath ../build/lib)
 ```
