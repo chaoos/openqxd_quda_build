@@ -46,4 +46,24 @@ mpirun -np <N> check1 -i ...
 
 ## Compilation on daint
 
+```
+module purge
+module load PrgEnv-gnu
+module load daint-gpu
+module load craype-accel-nvidia60
+module unload gcc/11.2.0
+module load Ninja
+module load gcc/9.3.0
+module load cray-mpich
+export CC=cc
+export CXX=CC
+export FC=ftn
+```
+
+```
+export GCC="cc"
+export MPI_HOME="${CRAY_MPICH_DIR}"
+export MPI_INCLUDE="${MPI_HOME}/include"
+```
+
 TODO
