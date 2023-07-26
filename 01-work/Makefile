@@ -55,5 +55,5 @@ clean:
 	cd $(OPENQXD_HOME)/devel/quda/uflds/ && $(MAKE) clean
 	rm -f check1
 
-make quda_clean:
+quda_clean:
 	rm -rf ../build

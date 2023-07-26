@@ -7,19 +7,18 @@ This repository aims to help compiling [openQxD](https://gitlab.com/rcstar/openQ
 # Clone this repo
 git clone https://github.com/chaoos/openqxd_quda_build.git
 
-# Clone the repos
-cd src
-git clone -b feature/quda/main-thesis-release https://gitlab.com/rcstar/openQxD-devel.git
-git clone -b feature/openqxd-thesis-release https://github.com/fernandezdlg/quda.git
+cd openqxd_quda_build
+# Clone the repos of openqxd and quda into src/
+git clone -b feature/quda/main-thesis-release https://gitlab.com/rcstar/openQxD-devel.git src/openQxD-devel
+git clone -b feature/openqxd-thesis-release https://github.com/fernandezdlg/quda.git src/quda
 
-# Download dependencies
-cd ../deps
-wget https://cmake.org/files/v3.24/cmake-3.24.2-linux-x86_64.tar.gz
-tar xfs cmake-3.24.2-linux-x86_64.tar.gz
-rm cmake-3.24.2-linux-x86_64.tar.gz
+# Download cmake v3.24 if not available (quda needs exactly this version!)
+wget -P deps/ https://cmake.org/files/v3.24/cmake-3.24.2-linux-x86_64.tar.gz
+tar xfs deps/cmake-3.24.2-linux-x86_64.tar.gz -C deps/
+rm deps/cmake-3.24.2-linux-x86_64.tar.gz
 
 # add the new cmake version to the PATH
-export PATH=$(realpath cmake-3.24.2-linux-x86_64/bin/):$PATH
+export PATH=$(realpath deps/cmake-3.24.2-linux-x86_64/bin/):$PATH
 ```
 
 ## Environment on linux
@@ -30,7 +29,7 @@ Make sure that these are available
 cmake --version # should be 3.24 now
 nvcc --version
 ninja --version # not strictly necessary, see below
-gcc --version # should be version 9
+gcc --version # should be gcc version 9.x
 ```
 
 ## Environment on daint
@@ -52,21 +51,26 @@ export CXX=CC
 export FC=ftn
 ```
 
+Check the environment:
+
+```bash
+cmake --version # should be 3.24 now
+nvcc --version
+ninja --version # not strictly necessary, see below
+gcc --version # should be gcc version 9.x
+```
+
 ## Compiling
 
-Then one has to edit
+The Makefile in openqxd (`src/openQxD-devel/devel/quda/uflds/Makefile`) has to be patched:
 
-```Makefile
-CC=mpicc
+```bash
+git -C src/openQxD-devel/ apply 01-work/Makefile.patch
 ```
 
-to
+These changes have to be done for every Makefile on openqxd that one wants to compile with.
 
-```Makefile
-CC=cc
-```
-
-in the Makefile of openqxd and the environment variables:
+Set the environment variables:
 
 ```bash
 export GCC="cc"
@@ -74,19 +78,18 @@ export MPI_HOME="${CRAY_MPICH_DIR}"
 export MPI_INCLUDE="${MPI_HOME}/include"
 ```
 
-Then compile the quda and openqxd in the `01-work` directory:
+Compile QUDA and openqxd in the `01-work` directory:
 
 ```bash
 cd 01-work
-make quda_ninja # make quda_make if ninja is not available
-make check1
+make quda_ninja # make quda_make if ninja is not available, this builds quda as library
+make check1 # this build check1 in openqxd and links it against quda dynamically
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(realpath ../build/lib) # for the dynamic linker to find libquda.so
 ```
 
 ## Running binaries
 
-
 ```bash
-mpirun -np <N> check1 -i ...
-srun ...
+mpirun -np <N> check1 -i ... # on regular linux
+srun ... # via slurm
 ```
