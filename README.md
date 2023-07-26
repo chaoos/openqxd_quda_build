@@ -65,7 +65,7 @@ gcc --version # should be gcc version 9.x
 The Makefile in openqxd (`src/openQxD-devel/devel/quda/uflds/Makefile`) has to be patched:
 
 ```bash
-git -C src/openQxD-devel/ apply 01-work/Makefile.patch
+git -C src/openQxD-devel/ apply ../../01-work/Makefile.patch
 ```
 
 These changes have to be done for every Makefile on openqxd that one wants to compile with.
@@ -85,6 +85,20 @@ cd 01-work
 make quda_ninja # make quda_make if ninja is not available, this builds quda as library
 make check1 # this build check1 in openqxd and links it against quda dynamically
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(realpath ../build/lib) # for the dynamic linker to find libquda.so
+```
+
+Verify with
+
+```bash
+ldd check1 # libquda should be in the LD_LIBRARY_PATH now
+```
+
+Output may look like:
+
+```
+[...]
+libquda.so => /[...]/openqxd_quda_build/build/lib/libquda.so (0x000014e90fcf8000)
+[...]
 ```
 
 ## Running binaries
