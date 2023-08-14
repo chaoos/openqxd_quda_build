@@ -32,6 +32,14 @@ ninja --version # not strictly necessary, see below
 gcc --version # should be gcc version 9.x
 ```
 
+Set the environment variables:
+
+```bash
+export GCC="gcc-9" # make sure it's gcc version 9.x
+export MPI_HOME="/usr/lib/x86_64-linux-gnu/openmpi/" # for example
+export MPI_INCLUDE="${MPI_HOME}/include"
+```
+
 ## Environment on daint
 
 Setup the environment on daint for quda
@@ -49,6 +57,14 @@ module load Ninja
 export CC=cc
 export CXX=CC
 export FC=ftn
+```
+
+Set the environment variables:
+
+```bash
+export GCC="cc"
+export MPI_HOME="${CRAY_MPICH_DIR}"
+export MPI_INCLUDE="${MPI_HOME}/include"
 ```
 
 Check the environment:
@@ -69,14 +85,6 @@ git -C src/openQxD-devel/ apply ../../01-work/Makefile.patch
 ```
 
 These changes have to be done for every Makefile on openqxd that one wants to compile with.
-
-Set the environment variables:
-
-```bash
-export GCC="cc"
-export MPI_HOME="${CRAY_MPICH_DIR}"
-export MPI_INCLUDE="${MPI_HOME}/include"
-```
 
 Compile QUDA and openqxd in the `01-work` directory:
 

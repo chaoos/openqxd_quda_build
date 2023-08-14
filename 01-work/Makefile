@@ -51,6 +51,10 @@ check5:
 	cd $(OPENQXD_HOME)/devel/quda/uflds/ && $(MAKE) check5
 	cp $(OPENQXD_HOME)/devel/quda/uflds/check5 .
 
+check2:
+	cd $(OPENQXD_HOME)/devel/quda/uflds/ && $(MAKE) check2
+	cp $(OPENQXD_HOME)/devel/quda/uflds/check2 .
+
 clean:
 	cd $(OPENQXD_HOME)/devel/quda/uflds/ && $(MAKE) clean
 	rm -f check1
