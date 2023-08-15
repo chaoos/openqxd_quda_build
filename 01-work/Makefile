@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-all: check1 check5
-.PHONY: check1 check5
+all: check1 check2
+.PHONY: check1 check2
 
 # target GPU architecture
 # sm_60 = P100
@@ -13,8 +13,8 @@ all: check1 check5
 QUDA_BUILD_TARGET := sm_60
 
 SHELL := /bin/bash
-OPENQXD_HOME := ../src/openQxD-devel
-QUDA_HOME := "../src/quda"
+OPENQXD_SRC := ../src/openQxD-devel
+QUDA_SRC := "../src/quda"
 QUDA_BUILD_PATH := "../build"
 
 CMAKE_FLAGS += -DCMAKE_BUILD_TYPE=DEVEL
@@ -35,29 +35,25 @@ CMAKE_FLAGS += -DQUDA_REORDER_LOCATION=GPU
 
 quda_ninja:
 	mkdir -p $(QUDA_BUILD_PATH)
-	cd $(QUDA_BUILD_PATH) && cmake -GNinja $(QUDA_HOME) $(CMAKE_FLAGS)
+	cd $(QUDA_BUILD_PATH) && cmake -GNinja $(QUDA_SRC) $(CMAKE_FLAGS)
 	cd $(QUDA_BUILD_PATH) && ninja
 
-quda_make:
+quda_make quda:
 	mkdir -p $(QUDA_BUILD_PATH)
-	cd $(QUDA_BUILD_PATH) && cmake ${QUDA_HOME} $(CMAKE_FLAGS)
-	cd $(QUDA_BUILD_PATH) && make -j 12
-
-check1:
-	cd $(OPENQXD_HOME)/devel/quda/uflds/ && $(MAKE) check1
-	cp $(OPENQXD_HOME)/devel/quda/uflds/check1 .
-
-check5:
-	cd $(OPENQXD_HOME)/devel/quda/uflds/ && $(MAKE) check5
-	cp $(OPENQXD_HOME)/devel/quda/uflds/check5 .
-
-check2:
-	cd $(OPENQXD_HOME)/devel/quda/uflds/ && $(MAKE) check2
-	cp $(OPENQXD_HOME)/devel/quda/uflds/check2 .
-
-clean:
-	cd $(OPENQXD_HOME)/devel/quda/uflds/ && $(MAKE) clean
-	rm -f check1
+	cd $(QUDA_BUILD_PATH) && cmake ${QUDA_SRC} $(CMAKE_FLAGS)
+	cd $(QUDA_BUILD_PATH) && $(MAKE) -j 12
 
 quda_clean:
 	rm -rf ../build
+
+check1:
+	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 12 check1
+	cp $(OPENQXD_SRC)/devel/quda/check1 .
+
+check2:
+	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 12 check2
+	cp $(OPENQXD_SRC)/devel/quda/check2 .
+
+clean:
+	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) clean
+	rm -f check1 check2
