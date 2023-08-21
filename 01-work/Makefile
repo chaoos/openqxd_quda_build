@@ -17,13 +17,16 @@ OPENQXD_SRC := ../src/openQxD-devel
 QUDA_SRC := "../src/quda"
 QUDA_BUILD_PATH := "../build"
 
+# see https://github.com/lattice/quda/wiki/QUDA-Build-With-CMake#reducing-qudas-build-time
 CMAKE_FLAGS += -DCMAKE_BUILD_TYPE=DEVEL
 CMAKE_FLAGS += -DQUDA_GPU_ARCH=$(QUDA_BUILD_TARGET)
-CMAKE_FLAGS += -DQUDA_DIRAC_DEFAULT_OFF=ON
-CMAKE_FLAGS += -DQUDA_DIRAC_CLOVER=ON
-CMAKE_FLAGS += -DQUDA_DIRAC_WILSON=ON
-CMAKE_FLAGS += -DQUDA_PRECISION=12
-CMAKE_FLAGS += -DQUDA_RECONSTRUCT=4
+CMAKE_FLAGS += -DQUDA_DIRAC_DEFAULT_OFF=ON  	# disables ALL Dirac operators
+CMAKE_FLAGS += -DQUDA_DIRAC_WILSON=ON  			# enables Wilson-Dirac operators
+CMAKE_FLAGS += -DQUDA_DIRAC_CLOVER=ON 			# enables Wilson-clover operators
+CMAKE_FLAGS += -DQUDA_PRECISION=12 				# 4-bit number that specifies which precisions we will enable
+												# (8 - double, 4 - single, 2 - half, 1 - quarter).
+CMAKE_FLAGS += -DQUDA_RECONSTRUCT=4  			# 3-bit number that specifies which reconstructs we will enable
+												# (4 - reconstruct-no, 2 - reconstruct-12/13, 1 - reconstruct-8/9).
 CMAKE_FLAGS += -DQUDA_FAST_COMPILE_DSLASH=ON
 CMAKE_FLAGS += -DQUDA_FAST_COMPILE_REDUCE=ON
 CMAKE_FLAGS += -DQUDA_INTERFACE_OPENQCD=ON 		# compile the openqxd interface

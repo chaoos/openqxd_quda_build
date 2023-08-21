@@ -92,6 +92,7 @@ Compile QUDA and openqxd in the `01-work` directory:
 cd 01-work
 make quda # or "make quda_make" or "make quda_ninja"
 make check1 # this build check1 in openqxd and links it against quda dynamically
+make check2
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(realpath ../build/lib) # for the dynamic linker to find libquda.so
 ```
 
