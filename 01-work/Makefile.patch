@@ -1,0 +1,22 @@
+diff --git a/devel/quda/uflds/Makefile b/devel/quda/uflds/Makefile
+index 32d376a..1f685f1 100644
+--- a/devel/quda/uflds/Makefile
++++ b/devel/quda/uflds/Makefile
+@@ -20,7 +20,7 @@ all: rmxeq mkdep mkxeq
+ QUDA_HOME = ../../../../quda
+ 
+ ## Add path to quda-build folder
+-QUDA_BUILD = ../../../../openQxD-quda-build
++QUDA_BUILD = ../../../../../build/
+ 
+ ## added cuda home, (maybe better to have in a .bashrc file depending on system)
+ CUDA_HOME ?= /usr/local/cuda
+@@ -131,7 +131,7 @@ LFLAGS = -Wl,-rpath $(QUDA_BUILD)/lib
+ ############################## do not change ###################################
+ 
+ SHELL=/bin/bash
+-CC=mpicc
++CC=cc
+ CLINKER=$(CC)
+ CXX=mpicxx
+ PGMS= $(MAIN) $(MODULES)
