@@ -78,14 +78,6 @@ gcc --version # should be gcc version 9.x
 
 ## Compiling
 
-The Makefile in openqxd (`src/openQxD-devel/devel/quda/uflds/Makefile`) has to be patched:
-
-```bash
-git -C src/openQxD-devel/ apply ../../01-work/Makefile.patch
-```
-
-These changes have to be done for every Makefile on openqxd that one wants to compile with.
-
 Compile QUDA and openqxd in the `01-work` directory:
 
 ```bash
