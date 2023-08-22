@@ -10,7 +10,7 @@ git clone https://github.com/chaoos/openqxd_quda_build.git
 cd openqxd_quda_build
 # Clone the repos of openqxd and quda into src/
 git clone -b feature/quda/main-thesis-release https://gitlab.com/rcstar/openQxD-devel.git src/openQxD-devel
-git clone https://github.com/chaoos/quda.git src/quda
+git clone -b feature/openqxd-thesis-release https://github.com/chaoos/quda.git src/quda
 
 # Download cmake v3.24 if not available (quda needs exactly this version!)
 wget -P deps/ https://cmake.org/files/v3.24/cmake-3.24.2-linux-x86_64.tar.gz
