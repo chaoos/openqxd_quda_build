@@ -32,6 +32,12 @@ ninja --version # not strictly necessary, see below
 gcc --version # should be gcc version 9.x
 ```
 
+If you don't find `nvcc` you might need to modify your path variable. For example on yoshi.ethz.ch:
+
+```bash
+export PATH=/usr/local/cuda-11.6/bin:$PATH
+```
+
 Set the environment variables:
 
 ```bash
