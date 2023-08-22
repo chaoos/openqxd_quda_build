@@ -1,0 +1,22 @@
+#
+# Example input file for openqxd/devel/quda/check{1,2}.c
+#
+
+[Run name]
+name    48x24x24x24b5.30k0.13625c1.90952id2 # D5d
+
+[Directories]
+log_dir     log
+cnfg_dir    /home/hpcp/CLS/D5d
+
+[Configurations]
+first   10
+last    10
+step    10
+
+[Boundary conditions]
+type    3
+cstar   0
+
+[Field parameters]
+gauge   SU(3)
