@@ -38,6 +38,12 @@ If you don't find `nvcc` you might need to modify your path variable. For exampl
 export PATH=/usr/local/cuda-11.6/bin:$PATH
 ```
 
+If CUDA is not in `usr/local/cuda`, you need to modify
+
+```bash
+export CUDA_HOME=/opt/cuda # example path
+```
+
 Set the environment variables:
 
 ```bash
