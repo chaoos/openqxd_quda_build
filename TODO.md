@@ -2,8 +2,8 @@
 
 ## Gauge field indexing
 
-- [ ] All reordering of gauge field in reorder_openqcd_to_quda() in quda_utils.c
-- [ ] Only have generic lexicographical ordering in OpenQCDOrder in gauge_field_order.h
+- [x] All reordering of gauge field in reorder_openqcd_to_quda() in quda_utils.c
+- [x] Only have generic lexicographical ordering in OpenQCDOrder in gauge_field_order.h
 
 ## Spinor field indexing
 
@@ -15,4 +15,4 @@
 
 ## Misc
 
-- [ ] Add input file to repo
+- [x] Add input file to repo
