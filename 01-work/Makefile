@@ -8,7 +8,8 @@ all: check1 check2
 .PHONY: check1 check2
 
 # target GPU architecture
-# sm_60 = P100
+# sm_60 = P100 (yoshi.ethz.ch)
+# sm_60 = NVIDIA TITAN Xp (spaceml4.ethz.ch)
 # see https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/
 QUDA_BUILD_TARGET := sm_60
 

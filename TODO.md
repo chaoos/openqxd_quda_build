@@ -7,9 +7,9 @@
 
 ## Spinor field indexing
 
-- [ ] All reordering of spinor field in reorder_spinor_openqcd_to_quda() in quda_utils.c
-- [ ] Generic load() and save() in color_spinor_field_order.h (in the same way as in OpenQCDOrder in gauge_field_order.h)
-- [ ] Check norm_square of a random spinor
+- [x] All reordering of spinor field in reorder_spinor_openqcd_to_quda() in quda_utils.c
+- [x] Generic load() and save() in color_spinor_field_order.h (in the same way as in OpenQCDOrder in gauge_field_order.h)
+- [x] Check norm_square of a random spinor
 - [ ] Calculate and compare <psi| gamma |psi>
 - [ ] Wilso-Dirac operator without Clover-term using unit gauge field
 
