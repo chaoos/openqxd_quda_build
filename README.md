@@ -117,6 +117,10 @@ libquda.so => /[...]/openqxd_quda_build/build/lib/libquda.so (0x000014e90fcf8000
 ## Running binaries
 
 ```bash
-mpirun -np <N> check1 -i ... # on regular linux
+# modify L and NPROC in ../src/openqxd-devel/include/global.h
+# compile again: make check1
+# make sure that configuration specified in check.in is available
+mkdir log
+mpirun -np <N> check1 -i check.in # on regular linux
 srun ... # via slurm
 ```
