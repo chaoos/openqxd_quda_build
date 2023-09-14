@@ -4,12 +4,12 @@
 #
 ################################################################################
 
-all: check1 check2
-.PHONY: check1 check2
+all: check1 check2 check3
+.PHONY: check1 check2 check3
 
 # target GPU architecture
 # sm_60 = P100 (yoshi.ethz.ch)
-# sm_60 = NVIDIA TITAN Xp (spaceml4.ethz.ch)
+# sm_61 = NVIDIA TITAN Xp (spaceml4.ethz.ch)
 # see https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/
 QUDA_BUILD_TARGET := sm_60
 
@@ -71,18 +71,22 @@ quda_ninja:
 quda_make quda:
 	mkdir -p $(QUDA_BUILD_PATH)
 	cd $(QUDA_BUILD_PATH) && cmake ${QUDA_SRC} $(CMAKE_FLAGS)
-	cd $(QUDA_BUILD_PATH) && $(MAKE) -j 12
+	cd $(QUDA_BUILD_PATH) && $(MAKE) -j 24
 
 quda_clean:
 	rm -rf ../build
 
 check1:
-	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 12 check1
+	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check1
 	cp $(OPENQXD_SRC)/devel/quda/check1 .
 
 check2:
-	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 12 check2
+	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check2
 	cp $(OPENQXD_SRC)/devel/quda/check2 .
+
+check3:
+	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check3
+	cp $(OPENQXD_SRC)/devel/quda/check3 .
 
 clean:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) clean

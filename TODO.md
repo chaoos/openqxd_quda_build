@@ -4,7 +4,7 @@
 
 - [x] All reordering of gauge fields in reorder_openqcd_to_quda() in quda_utils.c
 - [x] Only have generic lexicographical ordering in OpenQCDOrder in gauge_field_order.h
-- [ ] all reordering of gauge fields in OpenQCDOrder in QUDA (what about communication?)
+- [ ] All reordering of gauge fields in OpenQCDOrder in QUDA (what about communication?)
 - [ ] Gauge field spacetime index solved
 - [ ] Gauge field Dirac index solved
 - [ ] Gauge field color (row) index solved
@@ -14,7 +14,7 @@
 
 - [x] All reordering of spinor field in reorder_spinor_openqcd_to_quda() in quda_utils.c
 - [x] Generic load() and save() in color_spinor_field_order.h (in the same way as in OpenQCDOrder in gauge_field_order.h)
-- [x] all reordering of spinor fields in OpenQCDDiracOrder in QUDA
+- [x] All reordering of spinor fields in OpenQCDDiracOrder in QUDA
 - [x] Check norm_square of a random spinor
 - [x] Calculate and compare gamma5 |psi>, with psi random
 - [x] Calculate and compare gamma0 |psi>, with psi random
@@ -39,8 +39,9 @@
 
 ## Inverters
 
-- [ ] Run CG on QUDA and compare to openQCD CG
-- [ ] Run multigrid on QUDA and compare to solution of openQCD
+- [x] Run GCR on QUDA and compare to via Dw_dble()
+- [ ] Run other inverter on QUDA and compare to via Dw_dble()
+- [ ] Run inverter with multiple RHS on QUDA and compare to via Dw_dble()
 
 ## Misc
 
@@ -60,7 +61,7 @@ DeGrand-Rossi basis seems to be this: https://backend.mhpc.sissa.it/sites/defaul
 * Why does `MatQuda()`, `dslashQuda()` take a parameter of type QudaInvertParam?
 * How to find target architecture from command line (like the `sm_60` string for example)?
 * What's the intended way to apply gamma matrices to spinors?
-* `D_openQCD = - gamma^5 MatQuda gamma^5 = - D_openQCD^dagger`. Is this because of the different gamma-matrix convention?
+* `D_openQCD = - gamma^5 MatQuda gamma^5 = - MatQuda^dagger`. Is this because of the different gamma-matrix convention?
 * What is the difference between `dslashQuda` and `MatQuda`? And which one is inverted when calling `invertQuda`?
 * What is the difference between `QUDA_MASS_NORMALIZATION` and `QUDA_KAPPA_NORMALIZATION`? It only works with the former.
 * In the Dirac operator of quda, how are gamma matrices applied and in which convention?
@@ -88,5 +89,6 @@ What effect has `siteOrder`? Since I reversed the openQCD order and made it lexi
 ...
 ```
 
-
+* What does `invertQuda()` actually solve? Dslash or Mat? With or without Clover term?
+* What is `QudaInvertParam.reliable_delta`? Used in GCR
 
