@@ -65,15 +65,15 @@ module unload gcc/11.2.0
 module load gcc/9.3.0 # we need this specific gcc version
 module load cray-mpich
 module load Ninja
-
-export CC=cc
-export CXX=CC
-export FC=ftn
 ```
 
 Set the environment variables:
 
 ```bash
+export CC=cc
+export CXX=CC
+export FC=ftn
+export PATH=$(realpath deps/cmake-3.24.2-linux-x86_64/bin/):$PATH
 export GCC="cc"
 export CXX=CC
 export MPI_HOME="${CRAY_MPICH_DIR}"
