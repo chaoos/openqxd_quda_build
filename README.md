@@ -73,7 +73,6 @@ Set the environment variables:
 export CC=cc
 export CXX=CC
 export FC=ftn
-export PATH=$(realpath deps/cmake-3.24.2-linux-x86_64/bin/):$PATH
 export GCC="cc"
 export CXX=CC
 export MPI_HOME="${CRAY_MPICH_DIR}"
