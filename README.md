@@ -75,8 +75,19 @@ Set the environment variables:
 
 ```bash
 export GCC="cc"
+export CXX=CC
 export MPI_HOME="${CRAY_MPICH_DIR}"
 export MPI_INCLUDE="${MPI_HOME}/include"
+```
+
+Uncomment the compilers in `01-work/Makefile`:
+
+```bash
+
+```
+# CMAKE_FLAGS += -DCMAKE_C_COMPILER=/usr/bin/gcc-9
+# CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=/usr/bin/g++-9
+# CMAKE_FLAGS += -DCMAKE_Fortran_COMPILER=/usr/bin/gfortran-9
 ```
 
 Check the environment:
