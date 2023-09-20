@@ -134,3 +134,34 @@ mkdir log
 mpirun -np <N> check1 -i check.in # on regular linux
 srun ... # via slurm
 ```
+
+## Save tune parameters
+
+In order to cache the tune parameters you should set
+
+```bash
+export QUDA_RESOURCE_PATH=.
+```
+
+This will save the parameters to `tsv` files. When recompiling QUDA, you should
+delete these `tsv`files, otherwise QUDA will crash at run-time.
+
+## Profiler
+
+Make sure to have `nsys` installed (e.g. yoshi.ethz.ch has it installed). Then run for example
+
+```bash
+mpirun -np 2 nsys profile -o profiler%q{OMPI_COMM_WORLD_RANK} ./check3 -i check.in
+```
+
+This will create two files `profiler0.nsys-rep` and `profiler1.nsys-rep`. Download them to your 
+local laptop, and install [Nsight Systems 2023](https://developer.nvidia.com/gameworksdownload#?dn=nsight-systems-2023-3).
+Note that you need to register at Nvidia in order to download the program. In order to
+obtain named regions, run
+
+```bash
+# obtain named regions
+export NSYS_NVTX_PROFILER_REGISTER_ONLY=0
+mpirun -np 2 nsys profile --sample=none --trace=cuda,nvtx,mpi -o profiler_nvtx%q{OMPI_COMM_WORLD_RANK} ./check3 -i check.in
+```
+
