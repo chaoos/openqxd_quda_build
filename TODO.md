@@ -78,6 +78,7 @@ What effect has `siteOrder`? Since I reversed the openQCD order and made it lexi
 ...
 ```
 
+## Answered
 * What does `invertQuda()` actually solve? Dslash or Mat? With or without Clover term?
 * What is `QudaInvertParam.reliable_delta`? Used in GCR
 
