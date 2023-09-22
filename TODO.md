@@ -56,19 +56,8 @@ DeGrand-Rossi basis seems to be this: https://backend.mhpc.sissa.it/sites/defaul
 
 ## Questions
 
-* How to impose periodic BCs for the gauge field and anti-periodic for the fermion field (in time-direction)? `QudaGaugeParam.t_boundary = QUDA_PERIODIC_T;` seems to have no effect.
-    Answer: By default, QUDA implements anti-periodic boundary conditions in time direction for fermions.
-* Somehow our Dirac operator (definition see https://gitlab.com/rcstar/openQxD-devel/-/raw/master/doc/openQCD-1.6/dirac.pdf?ref_type=heads&inline=true eq. 2.6) and `MatQuda()` differ by a global minus sign and 2 gamma^5, why? Answer: You can set a parameter `QUDA_DAG_NO` to get the undaggered Dirac operator.
-* Why does `MatQuda()`, `dslashQuda()` take a parameter of type QudaInvertParam?
 * How to find target architecture from command line (like the `sm_60` string for example)?
-* What's the intended way to apply gamma matrices to spinors? Answer: See `ApplyGamma` in `quda/lib/dslash_gamma_helper.cu`.
-* `D_openQCD = - gamma^5 MatQuda gamma^5 = - MatQuda^dagger`. Is this because of the different gamma-matrix convention?
-* What is the difference between `dslashQuda` and `MatQuda`? And which one is inverted when calling `invertQuda`? `dslashQuda` applies the hopping part, `MatQuda` the Dirac operator.
 * What is the difference between `QUDA_MASS_NORMALIZATION` and `QUDA_KAPPA_NORMALIZATION`? It only works with the former.
-* In the Dirac operator of quda, how are gamma matrices applied and in which convention?
-* What's the definition of the sw-term in quda?
-* Can we calculate the sw-term on quda side?
-* Twisted mass term in quda? Setting `QudaInvertParam.mu` seems to have no effect.
 * What is difference between all the `QudaSolutionType`? And why is `MatQuda` dependent on them? It's not solving a system.
 * What is `QudaSiteSubset`? `QUDA_PARITY_SITE_SUBSET`, `QUDA_FULL_SITE_SUBSET`?
 * In `color_spinor_field.h`, we have 
@@ -81,7 +70,6 @@ else if (inv_param.dirac_order == QUDA_OPENQCD_DIRAC_ORDER) {
 ```
 
 What effect has `siteOrder`? Since I reversed the openQCD order and made it lexicographical (xyzt)?
-
 * What is the difference between `QudaDiracFieldOrder` (`QUDA_OPENQCD_DIRAC_ORDER`) and `QudaFieldOrder` (`QUDA_OPENQCD_FIELD_ORDER`) and `QudaSiteOrder`?
 * How does QUDA want to have the clover fields?
 * I disabled all Dirac operators from compiling except for Wilson and Clover. Even though I see compilations of eq:
@@ -92,4 +80,22 @@ What effect has `siteOrder`? Since I reversed the openQCD order and made it lexi
 
 * What does `invertQuda()` actually solve? Dslash or Mat? With or without Clover term?
 * What is `QudaInvertParam.reliable_delta`? Used in GCR
+
+* How to impose periodic BCs for the gauge field and anti-periodic for the fermion field (in time-direction)? `QudaGaugeParam.t_boundary = QUDA_PERIODIC_T;` seems to have no effect.
+    Answer: By default, QUDA implements anti-periodic boundary conditions in time direction for fermions.
+* Somehow our Dirac operator (definition see https://gitlab.com/rcstar/openQxD-devel/-/raw/master/doc/openQCD-1.6/dirac.pdf?ref_type=heads&inline=true eq. 2.6) and `MatQuda()` differ by a global minus sign and 2 gamma^5, why? Answer: You can set a parameter `QUDA_DAG_NO` to get the undaggered Dirac operator.
+* Why does `MatQuda()`, `dslashQuda()` take a parameter of type QudaInvertParam?
+
+* What's the intended way to apply gamma matrices to spinors? Answer: See `ApplyGamma` in `quda/lib/dslash_gamma_helper.cu`.
+* `D_openQCD = - gamma^5 MatQuda gamma^5 = - MatQuda^dagger`. Is this because of the different gamma-matrix convention?
+* What is the difference between `dslashQuda` and `MatQuda`? And which one is inverted when calling `invertQuda`? `dslashQuda` applies the hopping part, `MatQuda` the Dirac operator.
+
+* In the Dirac operator of quda, how are gamma matrices applied and in which convention?
+* What's the definition of the sw-term in quda?
+* Can we calculate the sw-term on quda side?
+* Twisted mass term in quda? Setting `QudaInvertParam.mu` seems to have no effect.
+
+
+
+
 
