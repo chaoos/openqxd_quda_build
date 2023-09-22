@@ -47,9 +47,19 @@ export CUDA_HOME=/opt/cuda # example path
 Set the environment variables:
 
 ```bash
-export GCC="gcc-9" # make sure it's gcc version 9.x
+export GCC="gcc" # use gcc-9 on yoshi
+export CC=mpicc
+export CXX=mpicxx
 export MPI_HOME="/usr/lib/x86_64-linux-gnu/openmpi/" # for example
 export MPI_INCLUDE="${MPI_HOME}/include"
+```
+
+On Yoshi, add the following lines in `01-work/Makefile`:
+
+```bash
+CMAKE_FLAGS += -DCMAKE_C_COMPILER=/usr/bin/gcc-9
+CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=/usr/bin/g++-9
+CMAKE_FLAGS += -DCMAKE_Fortran_COMPILER=/usr/bin/gfortran-9
 ```
 
 ## Environment on daint
@@ -79,14 +89,6 @@ export MPI_HOME="${CRAY_MPICH_DIR}"
 export MPI_INCLUDE="${MPI_HOME}/include"
 export PATH="~/openqxd_quda_build/deps/cmake-3.24.2-linux-x86_64/bin/):$PATH
 export LD_LIBRARY_PATH="~/openqxd_quda_build/build/lib":$LD_LIBRARY_PATH
-```
-
-Uncomment the compilers in `01-work/Makefile`:
-
-```bash
-# CMAKE_FLAGS += -DCMAKE_C_COMPILER=/usr/bin/gcc-9
-# CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=/usr/bin/g++-9
-# CMAKE_FLAGS += -DCMAKE_Fortran_COMPILER=/usr/bin/gfortran-9
 ```
 
 Check the environment:
