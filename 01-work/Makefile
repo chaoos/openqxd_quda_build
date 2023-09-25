@@ -90,4 +90,4 @@ check3:
 
 clean:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) clean
-	rm -f check1 check2
+	rm -f check1 check2 check3
