@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-all: check1 check2 check3
-.PHONY: check1 check2 check3
+all: check1 check2 check2a check3
+.PHONY: check1 check2 check2a check3
 
 # target GPU architecture
 # sm_60 = P100 (yoshi.ethz.ch)
@@ -19,7 +19,7 @@ QUDA_SRC := "../src/quda"
 QUDA_BUILD_PATH := "../build"
 
 # see https://github.com/lattice/quda/wiki/QUDA-Build-With-CMake#reducing-qudas-build-time
-CMAKE_FLAGS += -DCMAKE_BUILD_TYPE=DEVEL
+CMAKE_FLAGS += -DCMAKE_BUILD_TYPE=DEBUG
 CMAKE_FLAGS += -DQUDA_GPU_ARCH=$(QUDA_BUILD_TARGET)
 
 ####################
@@ -68,6 +68,9 @@ quda_ninja:
 	cd $(QUDA_BUILD_PATH) && cmake -GNinja $(QUDA_SRC) $(CMAKE_FLAGS)
 	cd $(QUDA_BUILD_PATH) && ninja
 
+quda_update:
+	cd $(QUDA_BUILD_PATH) && ninja
+
 quda_make quda:
 	mkdir -p $(QUDA_BUILD_PATH)
 	cd $(QUDA_BUILD_PATH) && cmake ${QUDA_SRC} $(CMAKE_FLAGS)
@@ -84,9 +87,14 @@ check2:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check2
 	cp $(OPENQXD_SRC)/devel/quda/check2 .
 
+check2a:
+	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check2a
+	cp $(OPENQXD_SRC)/devel/quda/check2a .
+
 check3:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check3
 	cp $(OPENQXD_SRC)/devel/quda/check3 .
+
 
 clean:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) clean
