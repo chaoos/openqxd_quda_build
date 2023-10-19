@@ -96,6 +96,14 @@ export PATH="~/openqxd_quda_build/deps/cmake-3.24.2-linux-x86_64/bin/":$PATH
 export LD_LIBRARY_PATH="~/openqxd_quda_build/build/lib":$LD_LIBRARY_PATH
 ```
 
+And change `01-work/Makefile`:
+
+```Makefile
+CMAKE_FLAGS += -DCMAKE_C_COMPILER=cc
+CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=CC
+CMAKE_FLAGS += -DCMAKE_Fortran_COMPILER=ftn
+```
+
 Check the environment:
 
 ```bash
