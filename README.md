@@ -92,7 +92,7 @@ export GCC="cc"
 export CXX=CC
 export MPI_HOME="${CRAY_MPICH_DIR}"
 export MPI_INCLUDE="${MPI_HOME}/include"
-export PATH="~/openqxd_quda_build/deps/cmake-3.24.2-linux-x86_64/bin/):$PATH
+export PATH="~/openqxd_quda_build/deps/cmake-3.24.2-linux-x86_64/bin/":$PATH
 export LD_LIBRARY_PATH="~/openqxd_quda_build/build/lib":$LD_LIBRARY_PATH
 ```
 
