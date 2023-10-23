@@ -3,6 +3,7 @@ This repository aims to help compiling [openQxD](https://gitlab.com/rcstar/openQ
 
 ## Inital setup
 
+### Git clone with HTTPS
 ```bash
 # Clone this repo
 git clone https://github.com/chaoos/openqxd_quda_build.git
@@ -11,6 +12,18 @@ cd openqxd_quda_build
 # Clone the repos of openqxd and quda into src/
 git clone -b feature/quda/main-thesis-release https://gitlab.com/rcstar/openQxD-devel.git src/openQxD-devel
 git clone -b feature/openqxd-thesis-release https://github.com/chaoos/quda.git src/quda
+```
+
+### Or git clone with SSH
+```bash
+# Clone this repo
+git clone git@github.com:chaoos/openqxd_quda_build.git
+
+cd openqxd_quda_build
+# Clone the repos of openqxd and quda into src/
+git clone -b feature/quda/main-thesis-release git@gitlab.com:rcstar/openQxD-devel.git src/openQxD-devel
+
+git clone -b feature/openqxd-thesis-release git@github.com:chaoos/quda.git src/quda
 ```
 
 ## Environment on linux
@@ -33,17 +46,26 @@ export PATH=/usr/local/cuda-11.6/bin:$PATH
 If CUDA is not in `usr/local/cuda`, you need to modify
 
 ```bash
-export CUDA_HOME=/opt/cuda # example path
+ # example path
+export CUDA_HOME=usr/local/cuda-11.6
+export CUDACXX=/usr/local/cuda-11.6/bin/nvcc
+export CUDA_BIN_PATH=/usr/local/cuda-11.6/bin
 ```
 
 Set the environment variables:
 
 ```bash
-export GCC="gcc" # use gcc-9 on yoshi
-export CC=mpicc
-export CXX=mpicxx
+# For MPI (e.g. openmpi):
 export MPI_HOME="/usr/lib/x86_64-linux-gnu/openmpi/" # for example
 export MPI_INCLUDE="${MPI_HOME}/include"
+export PATH=/usr/lib/x86_64-linux-gnu/openmpi/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/openmpi/lib:${LD_LIBRARY_PATH}
+```
+```bash
+# For QUDA-OpenQxD compilation:
+export GCC=gcc-9
+export CC=mpicc
+export CXX=mpicxx
 ```
 
 ## Environment on Yoshi
@@ -65,6 +87,9 @@ rm deps/cmake-3.24.2-linux-x86_64.tar.gz
 
 # add the new cmake version to the PATH
 export PATH=$(realpath deps/cmake-3.24.2-linux-x86_64/bin/):$PATH
+
+# add the new cmake version to the PATH via .bashrc
+echo "export PATH=[...]/cmake-3.24.2-linux-x86_64/bin/:$PATH" >> ~/.bashrc
 ```
 
 ## Environment on daint
@@ -88,12 +113,19 @@ Set the environment variables:
 export CC=cc
 export CXX=CC
 export FC=ftn
-export GCC="cc"
-export CXX=CC
+export GCC=cc
 export MPI_HOME="${CRAY_MPICH_DIR}"
 export MPI_INCLUDE="${MPI_HOME}/include"
-export PATH="~/openqxd_quda_build/deps/cmake-3.24.2-linux-x86_64/bin/):$PATH
-export LD_LIBRARY_PATH="~/openqxd_quda_build/build/lib":$LD_LIBRARY_PATH
+export PATH="${HOME}/openqxd_quda_build/deps/cmake-3.24.2-linux-x86_64/bin/":$PATH
+export LD_LIBRARY_PATH="${HOME}/openqxd_quda_build/build/lib":$LD_LIBRARY_PATH
+```
+
+And change `01-work/Makefile`:
+
+```Makefile
+CMAKE_FLAGS += -DCMAKE_C_COMPILER=cc
+CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=CC
+CMAKE_FLAGS += -DCMAKE_Fortran_COMPILER=ftn
 ```
 
 Check the environment:
@@ -107,17 +139,22 @@ gcc --version # should be gcc version 9.x
 
 ## Compiling
 
-Compile QUDA and openqxd in the `01-work` directory:
+Compile QUDA in the `01-work` directory:
 
 ```bash
 cd 01-work
 make quda # or "make quda_make" or "make quda_ninja"
-make check1 # this build check1 in openqxd and links it against quda dynamically
-make check2
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(realpath ../build/lib) # for the dynamic linker to find libquda.so
+# Add quda library (libquda.so) to LD_LIBRARY_PATH for the dynamic linker to find it
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(realpath ../build/lib)
 ```
 
-Verify with
+Compile OpenQxD programs
+```bash
+make check1 # this build check1 in openqxd and links it against quda dynamically
+make check2
+```
+
+Verify dynamic linker works correctly with
 
 ```bash
 ldd check1 # libquda should be in the LD_LIBRARY_PATH now
@@ -137,9 +174,9 @@ libquda.so => /[...]/openqxd_quda_build/build/lib/libquda.so (0x000014e90fcf8000
 # modify L and NPROC in ../src/openqxd-devel/include/global.h
 # compile again: make check1
 # make sure that configuration specified in check.in is available
-mkdir log
+mkdir log # if [...]/01-work/log does not exist
 mpirun -np <N> check1 -i check.in # on regular linux
-srun ... # via slurm
+srun ... # via slurm on daint
 ```
 
 ## Save tune parameters
