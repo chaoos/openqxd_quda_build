@@ -195,7 +195,7 @@ delete these `tsv`files, otherwise QUDA will crash at run-time.
 Make sure to have `nsys` installed (e.g. yoshi.ethz.ch has it installed). Then run for example
 
 ```bash
-mpirun -np 2 nsys profile -o profiler%q{OMPI_COMM_WORLD_RANK} ./check3 -i check.in
+mpirun -np 2 nsys profile -o profiler_check3_rank%q{OMPI_COMM_WORLD_RANK} ./check3 -i check.in
 ```
 
 This will create two files `profiler0.nsys-rep` and `profiler1.nsys-rep`. Download them to your 
