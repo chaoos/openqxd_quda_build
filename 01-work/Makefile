@@ -4,8 +4,10 @@
 #
 ################################################################################
 
-all: check1 check2 check2a check3
-.PHONY: check1 check2 check2a check3
+targets = check1 check2 check2a check3
+all: $(targets)
+.PHONY: all
+.PHONY: clean
 
 # target GPU architecture
 # sm_60 = P100 (yoshi.ethz.ch)
@@ -98,4 +100,4 @@ check3:
 
 clean:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) clean
-	rm -f check1 check2 check3
+	rm -f $(targets)
