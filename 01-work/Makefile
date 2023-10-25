@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-targets = check1 check2 check2a check3
+targets = check1 check1j check2 check2a check3
 all: $(targets)
 .PHONY: all
 .PHONY: clean
@@ -81,22 +81,10 @@ quda_make quda:
 quda_clean:
 	rm -rf ../build
 
-check1:
-	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check1
-	cp $(OPENQXD_SRC)/devel/quda/check1 .
-
-check2:
-	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check2
-	cp $(OPENQXD_SRC)/devel/quda/check2 .
-
-check2a:
-	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check2a
-	cp $(OPENQXD_SRC)/devel/quda/check2a .
-
-check3:
-	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check3
-	cp $(OPENQXD_SRC)/devel/quda/check3 .
-
+# $@ means current target in targets
+$(targets):
+	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 $@
+	cp $(OPENQXD_SRC)/devel/quda/$@ .
 
 clean:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) clean
