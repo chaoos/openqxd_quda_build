@@ -96,13 +96,18 @@ What effect has `siteOrder`? Since I reversed the openQCD order and made it lexi
 * Can we calculate the sw-term on quda side?
 * Twisted mass term in quda? Setting `QudaInvertParam.mu` seems to have no effect.
 
-
-
 ## Tests
 
-grep "❌" log/48x24x24x24b5.30k0.13625c1.90952id2.check2.log
+Below there is the current state of the checks.
 
-D5d = 48x24x24x24, bc=3, cstar=0
+```
+D5d = 48x24x24x24, bc=3, cstar=0, QCD-only
+A5  = 64x32x32x32, bc=3, cstar=0, QCD-only
+QxD = 64x32x32x32, bc=3, cstar=3, QCD+QED
+```
+
+
+### `check1.c`
 
 | check | process grid | QUDA_REORDER_LOCATION | config | status |
 | --- | --- | --- | --- | --- |
@@ -116,8 +121,8 @@ D5d = 48x24x24x24, bc=3, cstar=0
 | `check1.c` | 1x1x2x1 | CPU | D5d | |
 | `check1.c` | 1x1x1x2 | GPU | D5d | |
 | `check1.c` | 1x1x1x2 | CPU | D5d | |
-| `check2.c` | 1x2x2x2 | GPU | D5d | |
-| `check2.c` | 1x2x2x2 | CPU | D5d | |
+| `check1.c` | 1x2x2x2 | GPU | D5d | ✅ |
+| `check1.c` | 1x2x2x2 | CPU | D5d | ✅ |
 | `check1.c` | 2x1x2x2 | GPU | D5d | ✅ |
 | `check1.c` | 2x1x2x2 | CPU | D5d | ✅ |
 | `check1.c` | 2x4x1x1 | GPU | D5d | |
@@ -128,6 +133,24 @@ D5d = 48x24x24x24, bc=3, cstar=0
 | `check1.c` | 2x1x1x4 | CPU | D5d | |
 | `check1.c` | 8x1x1x1 | GPU | D5d | |
 | `check1.c` | 8x1x1x1 | CPU | D5d | |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check1.c` | 1x2x2x2 | GPU | A5 | ✅ |
+| `check1.c` | 1x2x2x2 | CPU | A5 | ✅ |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check1.c` | 1x2x2x2 | GPU | QxD | ✅ |
+| `check1.c` | 1x2x2x2 | CPU | QxD | ✅ |
+
+
+### `check2.c`
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
 | `check2.c` | 1x1x1x1 | GPU | D5d | ✅ |
 | `check2.c` | 1x1x1x1 | CPU | D5d | ✅ |
 | `check2.c` | 2x1x1x1 | GPU | D5d | ✅ |
@@ -150,4 +173,36 @@ D5d = 48x24x24x24, bc=3, cstar=0
 | `check2.c` | 2x1x1x4 | CPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6155880575203466e-01 (load Clover term from openQCD to QUDA) |
 | `check2.c` | 8x1x1x1 | GPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6208971019696192e-01 (load Clover term from openQCD to QUDA) |
 | `check2.c` | 8x1x1x1 | CPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6208971019696192e-01 (load Clover term from openQCD to QUDA) |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check2.c` | 1x2x2x2 | GPU | A5 | ✅ |
+| `check2.c` | 1x2x2x2 | CPU | A5 | ✅ |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check2.c` | 1x2x2x2 | GPU | QxD | ✅ calculate Clover term in QUDA fail (but that's OK) |
+| `check2.c` | 1x2x2x2 | CPU | QxD | ✅ calculate Clover term in QUDA fail (but that's OK) |
+
+
+### `check3.c`
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check3.c` | 1x2x2x2 | GPU | D5d | ✅ |
+| `check3.c` | 1x2x2x2 | CPU | D5d | ✅ |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check3.c` | 1x2x2x2 | GPU | A5 | ✅ |
+| `check3.c` | 1x2x2x2 | CPU | A5 | ✅ |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check3.c` | 1x2x2x2 | GPU | QxD | ✅ |
+| `check3.c` | 1x2x2x2 | CPU | QxD | ✅ |
 
