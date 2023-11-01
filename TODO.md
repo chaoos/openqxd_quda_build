@@ -5,10 +5,10 @@
 - [x] All reordering of gauge fields in reorder_openqcd_to_quda() in quda_utils.c
 - [x] Only have generic lexicographical ordering in OpenQCDOrder in gauge_field_order.h
 - [ ] All reordering of gauge fields in OpenQCDOrder in QUDA (what about communication?)
-- [ ] Gauge field spacetime index solved
-- [ ] Gauge field Dirac index solved
-- [ ] Gauge field color (row) index solved
-- [ ] Gauge field color (column) index solved
+- [x] Gauge field spacetime index solved
+- [x] Gauge field Dirac index solved
+- [x] Gauge field color (row) index solved
+- [x] Gauge field color (column) index solved
 
 ## Spinor field indexing
 
@@ -23,24 +23,24 @@
 - [x] Calculate and compare gamma3 |psi>, with psi random
 - [x] Spinor field spacetime index solved (untested)
 - [x] Spinor field spin index solved
-- [ ] Spinor field color index solved
+- [x] Spinor field color index solved
 
 ## Dirac operator
 
 - [x] Wilson-Dirac operator without Clover-term on a random spinor field
 - [x] Wilson-Dirac operator with Clover-term on a random spinor field
 - [ ] Wilson-Dirac operator with twisted mass mu!=0.0 on a random spinor field
-- [ ] Our gamma matrix basis implemented (and working)
+- [x] Our gamma matrix basis implemented (and working)
 
 ### Clover field
 
 - [x] Calculate the clover field on GPU using (already transfered) gauge fields
-- [ ] Transfer of clover field using `loadCloverQuda()` from host to device (needed once we have QCD+QED, since QED has its own clover term)
+- [x] Transfer of clover field using `loadCloverQuda()` from host to device (needed once we have QCD+QED, since QED has its own clover term)
 
 ## Inverters
 
 - [x] Run GCR on QUDA and compare to via Dw_dble()
-- [ ] Run other inverter on QUDA and compare to via Dw_dble()
+- [x] Run other inverter on QUDA and compare to via Dw_dble()
 - [ ] Run inverter with multiple RHS on QUDA and compare to via Dw_dble()
 
 ## Misc
@@ -98,5 +98,56 @@ What effect has `siteOrder`? Since I reversed the openQCD order and made it lexi
 
 
 
+## Tests
 
+grep "❌" log/48x24x24x24b5.30k0.13625c1.90952id2.check2.log
+
+D5d = 48x24x24x24, bc=3, cstar=0
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check1.c` | 1x1x1x1 | GPU | D5d | |
+| `check1.c` | 1x1x1x1 | CPU | D5d | |
+| `check1.c` | 2x1x1x1 | GPU | D5d | |
+| `check1.c` | 2x1x1x1 | CPU | D5d | |
+| `check1.c` | 1x2x1x1 | GPU | D5d | |
+| `check1.c` | 1x2x1x1 | CPU | D5d | |
+| `check1.c` | 1x1x2x1 | GPU | D5d | |
+| `check1.c` | 1x1x2x1 | CPU | D5d | |
+| `check1.c` | 1x1x1x2 | GPU | D5d | |
+| `check1.c` | 1x1x1x2 | CPU | D5d | |
+| `check2.c` | 1x2x2x2 | GPU | D5d | |
+| `check2.c` | 1x2x2x2 | CPU | D5d | |
+| `check1.c` | 2x1x2x2 | GPU | D5d | ✅ |
+| `check1.c` | 2x1x2x2 | CPU | D5d | ✅ |
+| `check1.c` | 2x4x1x1 | GPU | D5d | |
+| `check1.c` | 2x4x1x1 | CPU | D5d | |
+| `check1.c` | 2x1x4x1 | GPU | D5d | |
+| `check1.c` | 2x1x4x1 | CPU | D5d | |
+| `check1.c` | 2x1x1x4 | GPU | D5d | |
+| `check1.c` | 2x1x1x4 | CPU | D5d | |
+| `check1.c` | 8x1x1x1 | GPU | D5d | |
+| `check1.c` | 8x1x1x1 | CPU | D5d | |
+| `check2.c` | 1x1x1x1 | GPU | D5d | ✅ |
+| `check2.c` | 1x1x1x1 | CPU | D5d | ✅ |
+| `check2.c` | 2x1x1x1 | GPU | D5d | ✅ |
+| `check2.c` | 2x1x1x1 | CPU | D5d | ✅ |
+| `check2.c` | 1x2x1x1 | GPU | D5d | |
+| `check2.c` | 1x2x1x1 | CPU | D5d | |
+| `check2.c` | 1x1x2x1 | GPU | D5d | |
+| `check2.c` | 1x1x2x1 | CPU | D5d | |
+| `check2.c` | 1x1x1x2 | GPU | D5d | |
+| `check2.c` | 1x1x1x2 | CPU | D5d | |
+| `check2.c` | 1x2x2x2 | GPU | D5d | |
+| `check2.c` | 1x2x2x2 | CPU | D5d | |
+| `check2.c` | 2x1x2x2 | GPU | D5d | ✅ |
+| `check2.c` | 2x1x2x2 | CPU | D5d | ✅ |
+| `check2.c` | 2x4x1x1 | GPU | D5d | ❌ QUDA (rank=0): ERROR: qudaEventSynchronize_ returned CUDA_ERROR_ILLEGAL_ADDRESS <p> (timer.h:100 in stop()) <p>  (rank 0, host yoshi, quda_api.cpp:72 in void quda::target::cuda::set_driver_error(CUresult, const char*, const char*, const char*, const char*, bool)()) <p> QUDA (rank=0):        last kernel called was (name=N4quda10CopyCloverINS_6clover11FloatNOrderIdLi72ELi2ELb0ELb1ELb0EEENS1_12OpenQCDOrderIdLi72EEEddEE,volume=6x24x24x24,aux=GPU-offline,vol=82944precision=8Nc=3) |
+| `check2.c` | 2x4x1x1 | CPU | D5d | ❌ segfaults when trying to copy clover field from openQCD |
+| `check2.c` | 2x1x4x1 | GPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.5824249251764714e-01 (load Clover term from openQCD to QUDA) |
+| `check2.c` | 2x1x4x1 | CPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.5824249251764714e-01 (load Clover term from openQCD to QUDA) |
+| `check2.c` | 2x1x1x4 | GPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6155880575203466e-01 (load Clover term from openQCD to QUDA) |
+| `check2.c` | 2x1x1x4 | CPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6155880575203466e-01 (load Clover term from openQCD to QUDA) |
+| `check2.c` | 8x1x1x1 | GPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6208971019696192e-01 (load Clover term from openQCD to QUDA) |
+| `check2.c` | 8x1x1x1 | CPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6208971019696192e-01 (load Clover term from openQCD to QUDA) |
 
