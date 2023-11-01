@@ -165,14 +165,14 @@ QxD = 64x32x32x32, bc=3, cstar=3, QCD+QED
 | `check2.c` | 1x2x2x2 | CPU | D5d | |
 | `check2.c` | 2x1x2x2 | GPU | D5d | ✅ |
 | `check2.c` | 2x1x2x2 | CPU | D5d | ✅ |
-| `check2.c` | 2x4x1x1 | GPU | D5d | ❌ QUDA (rank=0): ERROR: qudaEventSynchronize_ returned CUDA_ERROR_ILLEGAL_ADDRESS <p> (timer.h:100 in stop()) <p>  (rank 0, host yoshi, quda_api.cpp:72 in void quda::target::cuda::set_driver_error(CUresult, const char*, const char*, const char*, const char*, bool)()) <p> QUDA (rank=0):        last kernel called was (name=N4quda10CopyCloverINS_6clover11FloatNOrderIdLi72ELi2ELb0ELb1ELb0EEENS1_12OpenQCDOrderIdLi72EEEddEE,volume=6x24x24x24,aux=GPU-offline,vol=82944precision=8Nc=3) |
-| `check2.c` | 2x4x1x1 | CPU | D5d | ❌ segfaults when trying to copy clover field from openQCD |
-| `check2.c` | 2x1x4x1 | GPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.5824249251764714e-01 (load Clover term from openQCD to QUDA) |
-| `check2.c` | 2x1x4x1 | CPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.5824249251764714e-01 (load Clover term from openQCD to QUDA) |
-| `check2.c` | 2x1x1x4 | GPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6155880575203466e-01 (load Clover term from openQCD to QUDA) |
-| `check2.c` | 2x1x1x4 | CPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6155880575203466e-01 (load Clover term from openQCD to QUDA) |
-| `check2.c` | 8x1x1x1 | GPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6208971019696192e-01 (load Clover term from openQCD to QUDA) |
-| `check2.c` | 8x1x1x1 | CPU | D5d | Test 4: ❌ difference in Dw (QUDA-openQCD)/openQCD = 2.6208971019696192e-01 (load Clover term from openQCD to QUDA) |
+| `check2.c` | 2x4x1x1 | GPU | D5d | ✅ |
+| `check2.c` | 2x4x1x1 | CPU | D5d | ✅ |
+| `check2.c` | 2x1x4x1 | GPU | D5d | ✅ |
+| `check2.c` | 2x1x4x1 | CPU | D5d | ✅ |
+| `check2.c` | 2x1x1x4 | GPU | D5d | ✅ |
+| `check2.c` | 2x1x1x4 | CPU | D5d | ✅ |
+| `check2.c` | 8x1x1x1 | GPU | D5d | ✅ |
+| `check2.c` | 8x1x1x1 | CPU | D5d | ✅ |
 
 
 | check | process grid | QUDA_REORDER_LOCATION | config | status |
@@ -183,8 +183,8 @@ QxD = 64x32x32x32, bc=3, cstar=3, QCD+QED
 
 | check | process grid | QUDA_REORDER_LOCATION | config | status |
 | --- | --- | --- | --- | --- |
-| `check2.c` | 1x2x2x2 | GPU | QxD | ✅ calculate Clover term in QUDA fail (but that's OK) |
-| `check2.c` | 1x2x2x2 | CPU | QxD | ✅ calculate Clover term in QUDA fail (but that's OK) |
+| `check2.c` | 1x2x2x2 | GPU | QxD | ✅ calculate Clover term in QUDA fails (but that's OK) |
+| `check2.c` | 1x2x2x2 | CPU | QxD | ✅ calculate Clover term in QUDA fails (but that's OK) |
 
 
 ### `check3.c`
@@ -205,4 +205,3 @@ QxD = 64x32x32x32, bc=3, cstar=3, QCD+QED
 | --- | --- | --- | --- | --- |
 | `check3.c` | 1x2x2x2 | GPU | QxD | ✅ |
 | `check3.c` | 1x2x2x2 | CPU | QxD | ✅ |
-
