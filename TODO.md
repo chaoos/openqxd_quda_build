@@ -43,10 +43,18 @@
 - [x] Run other inverter on QUDA and compare to via Dw_dble()
 - [ ] Run inverter with multiple RHS on QUDA and compare to via Dw_dble()
 
+## Eigensolvers
+
+- [ ] Interface eigensolvers of QUDA
+
 ## Misc
 
 - [x] Add input file to repo
 - [x] Pure function that does what `ipt[]` does, see `ipt_function()`
+- [x] Merge most recent openQxD master branch
+- [x] Go back to std=c89
+- [ ] Merge most recent QUDA development branch into ours
+- [ ] Send pull request to QUDA
 
 
 ## Gamma Basis
@@ -95,6 +103,8 @@ What effect has `siteOrder`? Since I reversed the openQCD order and made it lexi
 * What's the definition of the sw-term in quda?
 * Can we calculate the sw-term on quda side?
 * Twisted mass term in quda? Setting `QudaInvertParam.mu` seems to have no effect.
+
+
 
 ## Tests
 
@@ -205,3 +215,16 @@ QxD = 64x32x32x32, bc=3, cstar=3, QCD+QED
 | --- | --- | --- | --- | --- |
 | `check3.c` | 1x2x2x2 | GPU | QxD | ✅ |
 | `check3.c` | 1x2x2x2 | CPU | QxD | ✅ |
+
+
+## More Questions
+
+* Can there be a place to put indexing helper functions that are needed in all of `gauge_field_order.h`, `color_spinor_field_order.h`, `clover_field_order.h`, ...? But they are needed only for the openQCD order classes. Else I have to write them 3 times.
+* What does the `Bytes()` method mean in these order classes? It seems to have no impact.
+
+
+# Known Issues
+
+* When building openQxD in ISO C90, we have to ignore the following compiler warning about complex types `ISO C90 does not support complex types`. `quda.h` exposes functions with signatures containing `_Complex` as types.
+* We had to remove the "-Werror" compiler flag, that treats warnings as errors because of the above.
+
