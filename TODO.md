@@ -53,7 +53,7 @@
 - [x] Pure function that does what `ipt[]` does, see `ipt_function()`
 - [x] Merge most recent openQxD master branch
 - [x] Go back to std=c89
-- [ ] Merge most recent QUDA development branch into ours
+- [x] Merge most recent QUDA development branch into ours
 - [ ] Send pull request to QUDA
 - [ ] Change `openQCD_qudaGamma` to not use the gamma0 to gamma3 functions
 
