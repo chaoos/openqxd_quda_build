@@ -55,6 +55,7 @@
 - [x] Go back to std=c89
 - [ ] Merge most recent QUDA development branch into ours
 - [ ] Send pull request to QUDA
+- [ ] Change `openQCD_qudaGamma` to not use the gamma0 to gamma3 functions
 
 
 ## Gamma Basis
