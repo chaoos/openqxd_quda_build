@@ -31,6 +31,11 @@ CMAKE_FLAGS += -DCMAKE_C_COMPILER=/usr/bin/gcc-9
 CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=/usr/bin/g++-9
 CMAKE_FLAGS += -DCMAKE_Fortran_COMPILER=/usr/bin/gfortran-9
 
+# FIXME: Docs say to have them but did not see problems previously
+# CMAKE_FLAGS += -DMPI_C_COMPILER=/usr/bin/gcc-9
+# CMAKE_FLAGS += -DMPI_CXX_COMPILER=/usr/bin/g++-9
+# CMAKE_FLAGS += -DMPI_Fortran_COMPILER=/usr/bin/gfortran-9
+
 ####################
 # Dirac Operators  #
 ####################
@@ -39,7 +44,7 @@ CMAKE_FLAGS += -DQUDA_DIRAC_WILSON=ON			# enables Wilson-Dirac operators
 CMAKE_FLAGS += -DQUDA_DIRAC_CLOVER=ON			# enables Wilson-clover operators
 
 
-CMAKE_FLAGS += -DQUDA_PRECISION=12				# 4-bit number that specifies which precisions we will enable
+CMAKE_FLAGS += -DQUDA_PRECISION=14				# 4-bit number that specifies which precisions we will enable
 												# (8 - double, 4 - single, 2 - half, 1 - quarter).
 CMAKE_FLAGS += -DQUDA_RECONSTRUCT=4				# 3-bit number that specifies which reconstructs we will enable
 												# (4 - reconstruct-no, 2 - reconstruct-12/13, 1 - reconstruct-8/9).
