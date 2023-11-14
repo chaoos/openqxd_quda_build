@@ -5,10 +5,10 @@
 - [x] All reordering of gauge fields in reorder_openqcd_to_quda() in quda_utils.c
 - [x] Only have generic lexicographical ordering in OpenQCDOrder in gauge_field_order.h
 - [ ] All reordering of gauge fields in OpenQCDOrder in QUDA (what about communication?)
-- [ ] Gauge field spacetime index solved
-- [ ] Gauge field Dirac index solved
-- [ ] Gauge field color (row) index solved
-- [ ] Gauge field color (column) index solved
+- [x] Gauge field spacetime index solved
+- [x] Gauge field Dirac index solved
+- [x] Gauge field color (row) index solved
+- [x] Gauge field color (column) index solved
 
 ## Spinor field indexing
 
@@ -23,30 +23,38 @@
 - [x] Calculate and compare gamma3 |psi>, with psi random
 - [x] Spinor field spacetime index solved (untested)
 - [x] Spinor field spin index solved
-- [ ] Spinor field color index solved
+- [x] Spinor field color index solved
 
 ## Dirac operator
 
 - [x] Wilson-Dirac operator without Clover-term on a random spinor field
 - [x] Wilson-Dirac operator with Clover-term on a random spinor field
 - [ ] Wilson-Dirac operator with twisted mass mu!=0.0 on a random spinor field
-- [ ] Our gamma matrix basis implemented (and working)
+- [x] Our gamma matrix basis implemented (and working)
 
 ### Clover field
 
 - [x] Calculate the clover field on GPU using (already transfered) gauge fields
-- [ ] Transfer of clover field using `loadCloverQuda()` from host to device (needed once we have QCD+QED, since QED has its own clover term)
+- [x] Transfer of clover field using `loadCloverQuda()` from host to device (needed once we have QCD+QED, since QED has its own clover term)
 
 ## Inverters
 
 - [x] Run GCR on QUDA and compare to via Dw_dble()
-- [ ] Run other inverter on QUDA and compare to via Dw_dble()
+- [x] Run other inverter on QUDA and compare to via Dw_dble()
 - [ ] Run inverter with multiple RHS on QUDA and compare to via Dw_dble()
+
+## Eigensolvers
+
+- [ ] Interface eigensolvers of QUDA
 
 ## Misc
 
 - [x] Add input file to repo
 - [x] Pure function that does what `ipt[]` does, see `ipt_function()`
+- [x] Merge most recent openQxD master branch
+- [x] Go back to std=c89
+- [ ] Merge most recent QUDA development branch into ours
+- [ ] Send pull request to QUDA
 
 
 ## Gamma Basis
@@ -98,5 +106,132 @@ What effect has `siteOrder`? Since I reversed the openQCD order and made it lexi
 
 
 
+## Tests
 
+Below there is the current state of the checks.
+
+```
+D5d = 48x24x24x24, bc=3, cstar=0, QCD-only
+A5  = 64x32x32x32, bc=3, cstar=0, QCD-only
+QxD = 64x32x32x32, bc=3, cstar=3, QCD+QED
+```
+
+
+### `check1.c`
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check1.c` | 1x1x1x1 | GPU | D5d | |
+| `check1.c` | 1x1x1x1 | CPU | D5d | |
+| `check1.c` | 2x1x1x1 | GPU | D5d | |
+| `check1.c` | 2x1x1x1 | CPU | D5d | |
+| `check1.c` | 1x2x1x1 | GPU | D5d | |
+| `check1.c` | 1x2x1x1 | CPU | D5d | |
+| `check1.c` | 1x1x2x1 | GPU | D5d | |
+| `check1.c` | 1x1x2x1 | CPU | D5d | |
+| `check1.c` | 1x1x1x2 | GPU | D5d | |
+| `check1.c` | 1x1x1x2 | CPU | D5d | |
+| `check1.c` | 1x2x2x2 | GPU | D5d | ✅ |
+| `check1.c` | 1x2x2x2 | CPU | D5d | ✅ |
+| `check1.c` | 2x1x2x2 | GPU | D5d | ✅ |
+| `check1.c` | 2x1x2x2 | CPU | D5d | ✅ |
+| `check1.c` | 2x4x1x1 | GPU | D5d | |
+| `check1.c` | 2x4x1x1 | CPU | D5d | |
+| `check1.c` | 2x1x4x1 | GPU | D5d | |
+| `check1.c` | 2x1x4x1 | CPU | D5d | |
+| `check1.c` | 2x1x1x4 | GPU | D5d | |
+| `check1.c` | 2x1x1x4 | CPU | D5d | |
+| `check1.c` | 8x1x1x1 | GPU | D5d | |
+| `check1.c` | 8x1x1x1 | CPU | D5d | |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check1.c` | 1x2x2x2 | GPU | A5 | ✅ |
+| `check1.c` | 1x2x2x2 | CPU | A5 | ✅ |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check1.c` | 1x2x2x2 | GPU | QxD | ✅ |
+| `check1.c` | 1x2x2x2 | CPU | QxD | ✅ |
+
+
+### `check2.c`
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check2.c` | 1x1x1x1 | GPU | D5d | ✅ |
+| `check2.c` | 1x1x1x1 | CPU | D5d | ✅ |
+| `check2.c` | 2x1x1x1 | GPU | D5d | ✅ |
+| `check2.c` | 2x1x1x1 | CPU | D5d | ✅ |
+| `check2.c` | 1x2x1x1 | GPU | D5d | |
+| `check2.c` | 1x2x1x1 | CPU | D5d | |
+| `check2.c` | 1x1x2x1 | GPU | D5d | |
+| `check2.c` | 1x1x2x1 | CPU | D5d | |
+| `check2.c` | 1x1x1x2 | GPU | D5d | |
+| `check2.c` | 1x1x1x2 | CPU | D5d | |
+| `check2.c` | 1x2x2x2 | GPU | D5d | |
+| `check2.c` | 1x2x2x2 | CPU | D5d | |
+| `check2.c` | 2x1x2x2 | GPU | D5d | ✅ |
+| `check2.c` | 2x1x2x2 | CPU | D5d | ✅ |
+| `check2.c` | 2x4x1x1 | GPU | D5d | ✅ |
+| `check2.c` | 2x4x1x1 | CPU | D5d | ✅ |
+| `check2.c` | 2x1x4x1 | GPU | D5d | ✅ |
+| `check2.c` | 2x1x4x1 | CPU | D5d | ✅ |
+| `check2.c` | 2x1x1x4 | GPU | D5d | ✅ |
+| `check2.c` | 2x1x1x4 | CPU | D5d | ✅ |
+| `check2.c` | 8x1x1x1 | GPU | D5d | ✅ |
+| `check2.c` | 8x1x1x1 | CPU | D5d | ✅ |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check2.c` | 1x2x2x2 | GPU | A5 | ✅ |
+| `check2.c` | 1x2x2x2 | CPU | A5 | ✅ |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check2.c` | 1x2x2x2 | GPU | QxD | ✅ calculate Clover term in QUDA fails (but that's OK) |
+| `check2.c` | 1x2x2x2 | CPU | QxD | ✅ calculate Clover term in QUDA fails (but that's OK) |
+
+
+### `check3.c`
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check3.c` | 1x2x2x2 | GPU | D5d | ✅ |
+| `check3.c` | 1x2x2x2 | CPU | D5d | ✅ |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check3.c` | 1x2x2x2 | GPU | A5 | ✅ |
+| `check3.c` | 1x2x2x2 | CPU | A5 | ✅ |
+
+
+| check | process grid | QUDA_REORDER_LOCATION | config | status |
+| --- | --- | --- | --- | --- |
+| `check3.c` | 1x2x2x2 | GPU | QxD | ✅ |
+| `check3.c` | 1x2x2x2 | CPU | QxD | ✅ |
+
+
+## More Questions
+
+* Can there be a place to put indexing helper functions that are needed in all of `gauge_field_order.h`, `color_spinor_field_order.h`, `clover_field_order.h`, ...? But they are needed only for the openQCD order classes. Else I have to write them 3 times.
+* What does the `Bytes()` method mean in these order classes? It seems to have no impact.
+* What do these warnings mean?
+
+```
+ptxas warning : Local memory used for function '_ZN4quda8Kernel3DINS_12CoarseDslashENS_15DslashCoarseArgILb1ELb1ELb1ELNS_10DslashTypeE2ELi1ELi1EfffLi2ELi32ELb1EEELb0EEENSt9enable_ifIXclsr6deviceE14use_kernel_argIT0_EEEvE4typeES6_', size of stack frame: 120 bytes
+```
+
+* How to compile QUDA correctly?
+
+
+# Known Issues
+
+* When building openQxD in ISO C90, we have to ignore the following compiler warning about complex types `ISO C90 does not support complex types`. `quda.h` exposes functions with signatures containing `_Complex` as types.
+* We had to remove the "-Werror" compiler flag, that treats warnings as errors because of the above.
 

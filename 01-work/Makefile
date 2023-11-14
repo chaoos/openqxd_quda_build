@@ -96,6 +96,9 @@ quda_ninja:
 	cmake $(CMAKE_FLAGS) -GNinja -B $(QUDA_BUILD_PATH) $(QUDA_SRC)
 	cmake --build $(QUDA_BUILD_PATH)
 
+quda_update:
+	cd $(QUDA_BUILD_PATH) && ninja
+
 quda_make quda:
 	mkdir -p $(QUDA_BUILD_PATH)
 	cd $(QUDA_BUILD_PATH) && cmake ${QUDA_SRC} $(CMAKE_FLAGS)
@@ -111,6 +114,10 @@ check1:
 check2:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check2
 	cp $(OPENQXD_SRC)/devel/quda/check2 .
+
+check2a:
+	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check2a
+	cp $(OPENQXD_SRC)/devel/quda/check2a .
 
 check3:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check3

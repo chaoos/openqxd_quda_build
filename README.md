@@ -10,7 +10,7 @@ git clone https://github.com/chaoos/openqxd_quda_build.git
 cd openqxd_quda_build
 # Clone the repos of openqxd and quda into src/
 git clone -b feature/quda/main-thesis-release https://gitlab.com/rcstar/openQxD-devel.git src/openQxD-devel
-git clone -b feature/openqxd-thesis-release https://github.com/chaoos/quda.git src/quda
+git clone -b feature/openqxd https://github.com/chaoos/quda.git src/quda
 ```
 
 ## Environment on linux
@@ -92,8 +92,16 @@ export GCC="cc"
 export CXX=CC
 export MPI_HOME="${CRAY_MPICH_DIR}"
 export MPI_INCLUDE="${MPI_HOME}/include"
-export PATH="~/openqxd_quda_build/deps/cmake-3.24.2-linux-x86_64/bin/):$PATH
+export PATH="~/openqxd_quda_build/deps/cmake-3.24.2-linux-x86_64/bin/":$PATH
 export LD_LIBRARY_PATH="~/openqxd_quda_build/build/lib":$LD_LIBRARY_PATH
+```
+
+And change `01-work/Makefile`:
+
+```Makefile
+CMAKE_FLAGS += -DCMAKE_C_COMPILER=cc
+CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=CC
+CMAKE_FLAGS += -DCMAKE_Fortran_COMPILER=ftn
 ```
 
 Check the environment:
