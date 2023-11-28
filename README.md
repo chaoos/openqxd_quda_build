@@ -125,6 +125,24 @@ make check2
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(realpath ../build/lib) # for the dynamic linker to find libquda.so
 ```
 
+Note for compiling Daint: before executing the `make check1, `make check2`, ... commands, ensure to modify the compiler settings in the `Makefile` located at `PATH/openqxd_quda_build/src/openQxD-devel/devel/quda/` in the following way. 
+Change the lines
+
+```Makefile
+CC=mpicc
+CLINKER=$(CC)
+CXX=mpicxx
+```
+
+to 
+
+```Makefile
+CC=cc
+CLINKER=$(CC)
+CXX=cxx
+```
+
+
 Verify with
 
 ```bash
