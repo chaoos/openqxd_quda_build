@@ -139,7 +139,7 @@ libquda.so => /[...]/openqxd_quda_build/build/lib/libquda.so (0x000014e90fcf8000
 [...]
 ```
 
-**Note for compiling Daint.** before executing the `make check1`, `make check2`, ... commands, ensure to modify the compiler settings in the `Makefile` located at `PATH/openqxd_quda_build/src/openQxD-devel/devel/quda/` in the following way: change the lines
+**Note for compiling on Daint.** before executing the `make check1`, `make check2`, ... commands, ensure to modify the compiler settings in the `Makefile` located at `PATH/openqxd_quda_build/src/openQxD-devel/devel/quda/` in the following way: change the lines
 
 ```Makefile
 CC=mpicc
