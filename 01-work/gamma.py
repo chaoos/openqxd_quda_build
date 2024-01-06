@@ -27,6 +27,10 @@ np.set_printoptions(formatter={'complexfloat': fmt})
 gamma = {
     'openQCD': { # convention of openQCD
         't': np.matrix([[0,0,-1,0],[0,0,0,-1],[-1,0,0,0],[0,-1,0,0]], dtype=np.complex128),
+        # 0 0  0 -i
+        # 0 0 -i  0
+        # 0 i  0  0
+        # i 0  0  0
         'x': np.matrix([[0,0,0,-1j],[0,0,-1j,0],[0,1j,0,0],[1j,0,0,0]], dtype=np.complex128),
         'y': np.matrix([[0,0,0,-1],[0,0,1,0],[0,1,0,0],[-1,0,0,0]], dtype=np.complex128),
         'z': np.matrix([[0,0,-1j,0],[0,0,0,1j],[1j,0,0,0],[0,-1j,0,0]], dtype=np.complex128),
@@ -92,7 +96,7 @@ for prog, U in transformations.items():
         # print(gamma2)
         print_2mats(gamma1, gamma2)
         test1 = np.allclose(gamma1, gamma2)
-        test2 = np.allclose(gamma1, -gamma2)
-        print(f"equality: {colored(test1, 'green' if test1 else 'red')}"
-            f" (minus: {colored(test2, 'green' if test2 else 'red')})")
+        # test2 = np.allclose(gamma1, -gamma2)
+        print(f"equality: {colored(test1, 'green' if test1 else 'red')}")
+          #  f" (minus: {colored(test2, 'green' if test2 else 'red')})")
 
