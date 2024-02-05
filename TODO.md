@@ -4,7 +4,7 @@
 
 - [x] All reordering of gauge fields in reorder_openqcd_to_quda() in quda_utils.c
 - [x] Only have generic lexicographical ordering in OpenQCDOrder in gauge_field_order.h
-- [ ] All reordering of gauge fields in OpenQCDOrder in QUDA (what about communication?)
+- [x] All reordering of gauge fields in OpenQCDOrder in QUDA (what about communication?)
 - [x] Gauge field spacetime index solved
 - [x] Gauge field Dirac index solved
 - [x] Gauge field color (row) index solved
@@ -45,7 +45,7 @@
 
 ## Eigensolvers
 
-- [ ] Interface eigensolvers of QUDA
+- [x] Interface eigensolvers of QUDA
 
 ## Misc
 
@@ -53,7 +53,7 @@
 - [x] Pure function that does what `ipt[]` does, see `ipt_function()`
 - [x] Merge most recent openQxD master branch
 - [x] Go back to std=c89
-- [ ] Merge most recent QUDA development branch into ours
+- [x] Merge most recent QUDA development branch into ours
 - [ ] Send pull request to QUDA
 
 
@@ -227,6 +227,7 @@ QxD = 64x32x32x32, bc=3, cstar=3, QCD+QED
 ptxas warning : Local memory used for function '_ZN4quda8Kernel3DINS_12CoarseDslashENS_15DslashCoarseArgILb1ELb1ELb1ELNS_10DslashTypeE2ELi1ELi1EfffLi2ELi32ELb1EEELb0EEENSt9enable_ifIXclsr6deviceE14use_kernel_argIT0_EEEvE4typeES6_', size of stack frame: 120 bytes
 ```
 
+* How to use eigensolvers to obtain small eigenvalue, vectors?
 * How to compile QUDA correctly?
 
 
@@ -234,4 +235,5 @@ ptxas warning : Local memory used for function '_ZN4quda8Kernel3DINS_12CoarseDsl
 
 * When building openQxD in ISO C90, we have to ignore the following compiler warning about complex types `ISO C90 does not support complex types`. `quda.h` exposes functions with signatures containing `_Complex` as types.
 * We had to remove the "-Werror" compiler flag, that treats warnings as errors because of the above.
-
+* P2P communication problem (solved)
+* EO-preconditioned Dirac operator not working
