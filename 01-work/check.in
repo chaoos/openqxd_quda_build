@@ -91,7 +91,7 @@ omega                       0.8
 location                    QUDA_CUDA_FIELD_LOCATION
 
 # Desciption of the eigensolver in quda/check4
-# For more information, see QudaInvertParam_s struct in quda.h
+# For more information, see QudaEigParam_s struct in quda.h
 [Eigen Solver]
 verbosity               QUDA_DEBUG_VERBOSE
 eig_type                QUDA_EIG_TR_LANCZOS # QUDA_EIG_IR_ARNOLDI, QUDA_EIG_TR_LANCZOS

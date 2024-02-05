@@ -55,6 +55,15 @@
 - [x] Go back to std=c89
 - [x] Merge most recent QUDA development branch into ours
 - [ ] Send pull request to QUDA
+- [ ] Multiple solver handles at the same time
+- [ ] Print solver parameters
+- [ ] ifdef in `read_solver_parms()`, `print_solver_params()`
+- [ ] `extras/main/lowrank/pbp.c`
+- [ ] `check_solver_params()`
+- [ ] `write_solver_params()`
+- [ ] `get_gfld_flags()` to check gauge field version
+- [x] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_8/12` for SU(3) fields
+- [ ] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_9/13` for U(3) fields
 
 
 ## Gamma Basis
@@ -229,7 +238,7 @@ ptxas warning : Local memory used for function '_ZN4quda8Kernel3DINS_12CoarseDsl
 
 * How to use eigensolvers to obtain small eigenvalue, vectors?
 * How to compile QUDA correctly?
-
+* `QudaGaugeParam.t_boundary` seems to have effect only if reconstruct != QUDA_RECONSTRUCT_NO. Why does the underlying data format have an influence in the temporal boundary conditions?
 
 # Known Issues
 

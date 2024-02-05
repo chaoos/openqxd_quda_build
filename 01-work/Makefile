@@ -28,8 +28,8 @@ CMAKE_FLAGS += -DCMAKE_BUILD_TYPE=DEVEL # DEVEL, RELEASE, STRICT, DEBUG, HOSTDEB
 #    Compilers     #
 ####################
 
-# Uncomment to use GNU C++ (version 12) compiler on yoshi
-CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=/usr/bin/g++-12
+# Uncomment to use GNU C++ (version 11) compiler on yoshi
+CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=/usr/bin/g++-11
 
 # Uncomment to use Clang C++ (version 14) compiler on yoshi
 #CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=/usr/bin/clang++-14
@@ -67,7 +67,7 @@ CMAKE_FLAGS += -DQUDA_DIRAC_CLOVER=ON			# enables Wilson-clover operators
 
 CMAKE_FLAGS += -DQUDA_PRECISION=14				# 4-bit number that specifies which precisions we will enable
 												# (8 - double, 4 - single, 2 - half, 1 - quarter).
-CMAKE_FLAGS += -DQUDA_RECONSTRUCT=4				# 3-bit number that specifies which reconstructs we will enable
+CMAKE_FLAGS += -DQUDA_RECONSTRUCT=7				# 3-bit number that specifies which reconstructs we will enable
 												# (4 - reconstruct-no, 2 - reconstruct-12/13, 1 - reconstruct-8/9).
 CMAKE_FLAGS += -DQUDA_FAST_COMPILE_DSLASH=ON	# only use in dev-mode to reduce compile time
 CMAKE_FLAGS += -DQUDA_FAST_COMPILE_REDUCE=ON	# only use in dev-mode to reduce compile time
@@ -114,10 +114,6 @@ check1:
 check2:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check2
 	cp $(OPENQXD_SRC)/devel/quda/check2 .
-
-check2a:
-	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check2a
-	cp $(OPENQXD_SRC)/devel/quda/check2a .
 
 check3:
 	cd $(OPENQXD_SRC)/devel/quda/ && $(MAKE) -j 24 check3
