@@ -62,8 +62,8 @@
 - [ ] `check_solver_params()`
 - [ ] `write_solver_params()`
 - [ ] `get_gfld_flags()` to check gauge field version
-- [x] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_8/12` for SU(3) fields
-- [ ] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_9/13` for U(3) fields
+- [x] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_8/9/12/13/NO` for SU(3) fields
+- [x] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_9/13/NO` for U(3) fields
 
 
 ## Gamma Basis
