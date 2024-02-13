@@ -12,13 +12,16 @@ OPENQXD_SRC := ../src/openQxD-devel
 QUDA_SRC := "../src/quda"
 QUDA_BUILD_PATH := "../build"
 
-# Target GPU architecture
-# sm_60 = P100 (yoshi.ethz.ch)
-# sm_61 = NVIDIA TITAN Xp (spaceml4.ethz.ch)
+# Target GPU architectures:
+#
+# * sm_60 = P100 (daint)
+# * sm_61 = NVIDIA TITAN Xp (spaceml4.ethz.ch)
+# * sm_75 = NVIDIA GeForce RTX 2080 Ti (yoshi.ethz.ch)
+#
 # @see https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/
 # @see https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html#gpu-feature-list
 # @see https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html#virtual-architecture-feature-list
-CMAKE_FLAGS += -DQUDA_GPU_ARCH=sm_60
+CMAKE_FLAGS += -DQUDA_GPU_ARCH=sm_75
 #CMAKE_FLAGS += -DQUDA_GPU_ARCH_SUFFIX=real # real or virtual, see links above
 
 # see https://github.com/lattice/quda/wiki/QUDA-Build-With-CMake#reducing-qudas-build-time
