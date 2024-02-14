@@ -55,7 +55,7 @@
 - [x] Go back to std=c89
 - [x] Merge most recent QUDA development branch into ours
 - [ ] Send pull request to QUDA
-- [ ] Multiple solver handles at the same time
+- [ ] Multiple solver handles at the same time (`updateMultigridQuda()` if multiple multigrids)
 - [ ] Print solver parameters
 - [ ] ifdef in `read_solver_parms()`, `print_solver_params()`
 - [ ] `extras/main/lowrank/pbp.c`
