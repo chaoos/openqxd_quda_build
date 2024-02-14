@@ -31,10 +31,13 @@ gauge   SU(3)
 [QUDA]
 verbosity QUDA_SUMMARIZE # general verbosity (overwritten by solver verbosities)
 
+[Misc]
+nsolvers    1 # number of solver sections
+ninversions 1 # number of random inversions per gauge config per solver
 
 # Desciption of the inverter in quda/check3
 # For more information, see QudaInvertParam_s struct in quda.h
-[Solver]
+[Solver 1]
 solver                  QUDA
 maxiter                 256
 gcrNkrylov              10
@@ -50,13 +53,13 @@ mass_normalization      QUDA_MASS_NORMALIZATION
 cuda_prec_sloppy        QUDA_SINGLE_PRECISION
 cuda_prec_precondition  QUDA_HALF_PRECISION
 
-[Solver Multigrid] # only needed if inv_type_precondition = QUDA_MG_INVERTER
+[Solver 1 Multigrid] # only needed if inv_type_precondition = QUDA_MG_INVERTER
 n_level                 2 # description of the 2 levels -> see sections "Solver Multigrid Level 0,1" below
 generate_all_levels     QUDA_BOOLEAN_TRUE
 run_verify              QUDA_BOOLEAN_FALSE
 compute_null_vector     QUDA_COMPUTE_NULL_VECTOR_YES
 
-[Solver Multigrid Level 0]
+[Solver 1 Multigrid Level 0]
 geo_block_size              4 4 4 4
 n_vec                       24
 spin_block_size             2
@@ -74,7 +77,7 @@ coarse_solver_maxiter       50
 coarse_grid_solution_type   QUDA_MAT_SOLUTION
 location                    QUDA_CUDA_FIELD_LOCATION
 
-[Solver Multigrid Level 1]
+[Solver 1 Multigrid Level 1]
 precision_null              QUDA_HALF_PRECISION
 coarse_solver               QUDA_CA_GCR_INVERTER
 smoother                    QUDA_CA_GCR_INVERTER

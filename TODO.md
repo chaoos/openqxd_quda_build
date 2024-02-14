@@ -39,9 +39,9 @@
 
 ## Inverters
 
-- [x] Run GCR on QUDA and compare to via Dw_dble()
-- [x] Run other inverter on QUDA and compare to via Dw_dble()
-- [ ] Run inverter with multiple RHS on QUDA and compare to via Dw_dble()
+- [x] Run GCR on QUDA and compare to via `Dw_dble()`
+- [x] Run other inverter on QUDA and compare to via `Dw_dble()`
+- [ ] Run inverter with multiple RHS on QUDA and compare to via `Dw_dble()`
 
 ## Eigensolvers
 
@@ -52,17 +52,17 @@
 - [x] Add input file to repo
 - [x] Pure function that does what `ipt[]` does, see `ipt_function()`
 - [x] Merge most recent openQxD master branch
-- [x] Go back to std=c89
+- [x] Go back to `--std=c89`
 - [x] Merge most recent QUDA development branch into ours
 - [x] Send pull request to QUDA
-- [ ] Multiple solver handles at the same time
-  - [ ] Only transfer/calc gauge/clover field when not up2date 
-- [ ] Print solver parameters
-- [ ] ifdef in `read_solver_parms()`, `print_solver_params()`
-- [ ] `extras/main/lowrank/pbp.c`
+- [x] Multiple solver handles at the same time
+  - [x] Only transfer/calc gauge/clover field when not up2date 
+  - [x] `get_gfld_flags()` to check gauge field version
+- [ ] Print solver parameters, `print_solver_params()`
+- [ ] ifdef in `read_solver_parms()`
 - [ ] `check_solver_params()`
 - [ ] `write_solver_params()`
-- [ ] `get_gfld_flags()` to check gauge field version
+- [ ] `extras/main/lowrank/pbp.c`
 - [x] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_8/9/12/13/NO` for SU(3) fields
 - [x] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_9/13/NO` for U(3) fields
 
