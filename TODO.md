@@ -58,13 +58,18 @@
 - [x] Multiple solver handles at the same time
   - [x] Only transfer/calc gauge/clover field when not up2date 
   - [x] `get_gfld_flags()` to check gauge field version
-- [ ] Print solver parameters, `print_solver_params()`
-- [ ] ifdef in `read_solver_parms()`
-- [ ] `check_solver_params()`
-- [ ] `write_solver_params()`
-- [ ] `extras/main/lowrank/pbp.c`
+  - [x] `get_swdfld_flags()` to check SW field version
+- [x] Print solver parameters, `print_solver_parms()`
+- [x] ifdef in `read_solver_parms()`
+- [x] `check_solver_parms()`
+- [x] `write_solver_parms()`
+- [x] `extras/main/lowrnk/pbp.c`
+- [ ] Refactor/remove all of `initialized`, `gauge_loaded`, `clover_loaded`, `dslash_setup` in `openQCD_QudaState_t`
+- [ ] Meaningfull error message, when `quda_init()` was not called before accessing interface functions
+- [ ] Same concept for eigensolver as for solvers; readin, setup, call, destroy
 - [x] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_8/9/12/13/NO` for SU(3) fields
 - [x] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_9/13/NO` for U(3) fields
+- [ ] Remove gamma.h core changes
 
 
 ## Gamma Basis
