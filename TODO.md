@@ -64,12 +64,13 @@
 - [x] `check_solver_parms()`
 - [x] `write_solver_parms()`
 - [x] `extras/main/lowrnk/pbp.c`
-- [ ] Refactor/remove all of `initialized`, `gauge_loaded`, `clover_loaded`, `dslash_setup` in `openQCD_QudaState_t`
+- [x] Refactor/remove all of `initialized`, `gauge_loaded`, `clover_loaded`, `dslash_setup` in `openQCD_QudaState_t`
 - [ ] Meaningfull error message, when `quda_init()` was not called before accessing interface functions
 - [ ] Same concept for eigensolver as for solvers; readin, setup, call, destroy
 - [x] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_8/9/12/13/NO` for SU(3) fields
 - [x] Reduced format for the gauge fields in `check{1..4}`, ie. `QUDA_RECONSTRUCT_9/13/NO` for U(3) fields
-- [ ] Remove gamma.h core changes
+- [x] Remove gamma.h core changes
+- [ ] Deal with the points in https://github.com/lattice/quda/pull/1414#pullrequestreview-1756476620
 
 
 ## Gamma Basis
