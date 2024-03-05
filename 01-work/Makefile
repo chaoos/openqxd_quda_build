@@ -13,7 +13,7 @@ QUDA_SRC := "../src/quda"
 QUDA_BUILD_PATH := "../build"
 
 # enable/disable to compile as in QUDAs CI/CD
-QUDA_CICD := yes
+QUDA_CICD := no
 
 ifeq ($(QUDA_CICD),no)
 
