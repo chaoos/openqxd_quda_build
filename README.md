@@ -197,4 +197,90 @@ obtain named regions, run
 export NSYS_NVTX_PROFILER_REGISTER_ONLY=0
 mpirun -np 2 nsys profile --sample=none --trace=cuda,nvtx,mpi -o profiler_nvtx%q{OMPI_COMM_WORLD_RANK} ./check3 -i check.in
 ```
+## Environment on Leonardo:
 
+Setup the environment on Leonardo:
+
+```bash
+module load profile/global
+module load cmake
+module load cuda/12.1
+module load gcc/12.2.0
+module load openmpi/4.1.6--gcc--12.2.0
+module load ninja
+```
+
+Set the environment variables:
+
+```bash
+export GCC="gcc"
+export MPI_HOME="${OPENMPI_HOME}"
+export MPI_INCLUDE="${MPI_HOME}/include"
+```
+
+Change `01-work/Makefile`:
+
+```bash
+CMAKE_FLAGS += -DQUDA_GPU_ARCH=sm_80
+CMAKE_FLAGS += -DCMAKE_BUILD_TYPE=STRICT
+CMAKE_FLAGS += -DCMAKE_CXX_COMPILER=g++
+CMAKE_FLAGS += -DCMAKE_C_COMPILER=gcc
+CMAKE_FLAGS += -DMPI_CXX_SKIP_MPICXX=ON
+CMAKE_FLAGS += -DCMAKE_CUDA_COMPILER=nvcc
+CMAKE_FLAGS +=
+-DCUDAToolkit_BIN_DIR=/leonardo/prod/opt/compilers/cuda/12.1/none/bin
+CMAKE_FLAGS +=
+-DCUDAToolkit_INCLUDE_DIR=/leonardo/prod/opt/compilers/cuda/12.1/none/include
+```
+
+The QUDA compilation takes longer than 10 mins. The large production runs are executed in batch mode, see [LEONARDO Booster UserGuide](https://wiki.u-gov.it/confluence/display/SCAIUS/UG3.2.1%3A+LEONARDO+Booster+UserGuide).
+
+This is an example of script file to compile QUDA:
+
+```bash
+#!/bin/bash
+#SBATCH -A <account_name>
+#SBATCH -p boost_usr_prod
+#SBATCH --exclusive
+#SBATCH --time 00:50:00     # format: HH:MM:SS
+#SBATCH -N 1
+#SBATCH --ntasks-per-node=1 # 1 tasks out of 32
+#SBATCH --gres=gpu:0        # 0 gpus per node out of 4
+#SBATCH --job-name=my_batch_job
+
+srun make quda_ninja
+```
+
+Note that since compute nodes don't have internet connection, you should
+
+1) guide cmake to a local folder, where eigen3 has been downloaded and unpacked and change `01-work/Makefile` accordingly:
+
+```bash
+CMAKE_FLAGS += -DCPM_DOWNLOAD_ALL=OFF
+CMAKE_FLAGS += -DQUDA_DOWNLOAD_EIGEN=OFF
+CMAKE_FLAGS +=
+-DEIGEN_INCLUDE_DIR=realpath ../eigen3
+```
+
+2) modify `openqxd_quda_build/src/quda/CMakeLists.txt`
+
+```bash 
+# add a directory for cmake modules
+...
+include(cmake/CPM.cmake)
+```
+
+in order to include the folder where CPM.cmake-0.38.7 has been downloaded and unpacked. 
+
+Compile openqxd in the 01-work directory:
+
+Since libraries like libcuda.so and libnvidia-ml.so are only available when one is on a compute node, you can run 
+```bash
+make check{1,2,3,4} 
+```
+
+for example, via salloc 
+
+```bash
+salloc -N 1 -t 00:05:00 --ntasks-per-node=1 --gres=gpu:0 -p boost_usr_prod -A<account_name>
+```
