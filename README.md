@@ -202,17 +202,8 @@ mpirun -np 2 nsys profile --sample=none --trace=cuda,nvtx,mpi -o profiler_nvtx%q
 Setup the environment on Leonardo:
 
 ```bash
-module load profile/global
-module load cmake
-module load cuda/12.1
-module load gcc/12.2.0
-module load openmpi/4.1.6--gcc--12.2.0
-module load ninja
-```
+module load gcc/12.2.0 openmpi/4.1.6--gcc--12.2.0 cuda/12.1 cmake ninja
 
-Set the environment variables:
-
-```bash
 export GCC="gcc"
 export MPI_HOME="${OPENMPI_HOME}"
 export MPI_INCLUDE="${MPI_HOME}/include"
@@ -253,7 +244,7 @@ srun make quda_ninja
 
 Note that since compute nodes don't have internet connection, you should
 
-1) guide cmake to a local folder, where eigen3 has been downloaded and unpacked and change `01-work/Makefile` accordingly:
+1) guide cmake to a local folder, where `eigen3` has been downloaded and unpacked and change `01-work/Makefile` accordingly:
 
 ```bash
 CMAKE_FLAGS += -DCPM_DOWNLOAD_ALL=OFF
@@ -270,11 +261,12 @@ CMAKE_FLAGS +=
 include(cmake/CPM.cmake)
 ```
 
-in order to include the folder where CPM.cmake-0.38.7 has been downloaded and unpacked. 
+in order to include the folder where `CPM.cmake-0.38.7` has been downloaded and unpacked. 
 
-Compile openqxd in the 01-work directory:
+Compile openqxd in the `01-work` directory:
 
-Since libraries like libcuda.so and libnvidia-ml.so are only available when one is on a compute node, you can run 
+Since libraries like `libcuda.so` and `libnvidia-ml.so` are only available on compute node, you can run 
+
 ```bash
 make check{1,2,3,4} 
 ```
